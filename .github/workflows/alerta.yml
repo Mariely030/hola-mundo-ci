@@ -10,14 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
 
-      - name: Enviar alerta
+      - name: Enviar notificacion
         run: |
-          curl \
-            -H "Title: Push detectado" \
-            -H "Tags: github,rocket" \
-            -d "Repositorio: ${{ github.repository }}
-Autor: ${{ github.actor }}
-Commit: ${{ github.event.head_commit.message }}" \
-            https://ntfy.sh/devops-itla
+          curl -H "Title: Nuevo Push" \
+          -d "Repositorio: ${{ github.repository }} | Autor: ${{ github.actor }} | Commit: ${{ github.event.head_commit.message }}" \
+          https://ntfy.sh/devops-itla
